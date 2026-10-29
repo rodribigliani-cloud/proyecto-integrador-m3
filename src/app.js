@@ -213,7 +213,7 @@ function renderChat() {
         ...state.messages,
         createMessage(
           'model',
-          'He sufrido una perturbación en mi dominio. Intenta de nuevo en unos instantes.',
+          error.message || 'No se pudo conectar con Gemini. Revisa la configuración del servidor e inténtalo otra vez.',
         ),
       ];
     } finally {

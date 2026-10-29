@@ -1,3 +1,5 @@
+import { GEMINI_ENDPOINT } from '../index.js';
+
 export default async function handler(request, response) {
   if (request.method !== 'POST') {
     return response.status(405).json({ error: 'Método no permitido.' });
@@ -10,8 +12,7 @@ export default async function handler(request, response) {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      const fallbackReply = 'El oráculo no responde esta noche. El miedo es un arma, pero la paciencia también. Intenta nuevamente con una clave válida en tu entorno.';
-      return response.status(200).json({ reply: fallbackReply });
+      return response.status(500).json({ error: 'Falta configurar GEMINI_API_KEY en las variables de entorno del servidor.' });
     }
 
     const payload = {
@@ -26,16 +27,14 @@ export default async function handler(request, response) {
         })),
     };
 
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+    const geminiResponse = await fetch(GEMINI_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey,
       },
-    );
+      body: JSON.stringify(payload),
+    });
 
     const data = await geminiResponse.json();
 
