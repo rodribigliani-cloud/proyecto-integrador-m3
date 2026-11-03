@@ -2,6 +2,11 @@
 
 Aplicación SPA responsive de chat con una versión ficticia de Lord Voldemort. Incluye las secciones Home, Chat y About, navegación con History API y una función serverless en Vercel que conecta el chat con Gemini.
 
+## link del deploy de la api 
+https://vercel.com/rodribigliani-7216/proyecto-integrador-m3
+
+https://proyecto-integrador-m3-five.vercel.app/
+
 ## Requisitos
 
 - Node.js 18+
